@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>دعوة إلى رفقة الذكر · أذكار يومي</title>
+<meta name="description" content="نذكّر بعضنا ونواظب على الأذكار معًا — تطبيق أذكار يومي">
+<meta name="theme-color" content="#1F5C43">
+<!-- بطاقة الرابط في واتساب (ثابتة لكل الدعوات) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="أذكار يومي">
+<meta property="og:title" content="دعوة إلى رفقة الذكر">
+<meta property="og:description" content="نذكّر بعضنا ونواظب على الأذكار معًا — أذكار يومي">
+<meta property="og:image" content="https://monoei1233-tech.github.io/athkar/invite.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://monoei1233-tech.github.io/athkar/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon.png">
+<style>
+  :root { --g:#1F5C43; --g2:#2D7A4F; --gold:#B08A3E; --cream:#FBF7EE; --tx:#1F3D2E; --sub:#6E6656; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { background: var(--cream); color: var(--tx); font-family: system-ui, -apple-system, "Segoe UI", Tahoma, "Noto Sans Arabic", sans-serif; }
+  body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+  .hero { width: 100%; height: 46vh; min-height: 260px; max-height: 420px; position: relative;
+    background: url(invite.jpg) center / cover no-repeat; }
+  .hero::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(31,92,67,.10) 0%, rgba(31,92,67,.30) 45%, var(--cream) 100%); }
+  .brand { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+  .brand img { width: 96px; height: 96px; border-radius: 50%; box-shadow: 0 6px 18px rgba(0,0,0,.28); }
+  .brand b { font-size: 22px; font-weight: 900; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.55); }
+  .card { width: min(92vw, 420px); background: #fff; border-radius: 24px; margin-top: -48px; position: relative; z-index: 2;
+    padding: 22px 18px 18px; text-align: center; box-shadow: 0 10px 28px rgba(0,0,0,.12); }
+  h1 { font-size: 21px; font-weight: 900; line-height: 1.5; }
+  p.sub { color: var(--sub); font-size: 14.5px; font-weight: 600; margin-top: 6px; line-height: 1.7; }
+  .three { display: flex; gap: 8px; margin-top: 14px; }
+  .three span { flex: 1; border-radius: 12px; padding: 7px 4px; font-size: 13px; font-weight: 800; }
+  .btn { display: block; width: 100%; margin-top: 18px; background: var(--g2); color: #fff; text-decoration: none;
+    border-radius: 16px; padding: 14px; font-size: 17px; font-weight: 900; box-shadow: 0 4px 12px rgba(45,122,79,.3); }
+  .btn:active { transform: scale(.98); }
+  .alt { display: block; margin-top: 12px; color: var(--g2); font-size: 14px; font-weight: 800; text-decoration: none; }
+  .hint { color: #8A8270; font-size: 12.5px; font-weight: 600; margin-top: 10px; line-height: 1.6; }
+  .code { margin-top: 14px; border: 1.5px dashed #E4D3A6; border-radius: 14px; padding: 10px; background: #FFFDF7; display: none; }
+  .code small { color: #96763A; font-size: 12px; font-weight: 700; }
+  .code b { display: block; direction: ltr; font-size: 28px; letter-spacing: 6px; color: var(--g); font-weight: 900; }
+  footer { margin: 22px 0 26px; color: #A59C88; font-size: 12px; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="hero"><div class="brand"><img src="logo.png" alt=""><b id="appName">أذكار يومي</b></div></div>
+  <main class="card">
+    <h1 id="title">دعوة إلى رفقة الذكر</h1>
+    <p class="sub" id="sub">نذكّر بعضنا ونواظب على الأذكار معًا</p>
+    <div class="three">
+      <span style="background:#FBF3DE" id="m">الصباح</span>
+      <span style="background:#E6EEF7" id="e">المساء</span>
+      <span style="background:#EDE8F7" id="n">النوم</span>
+    </div>
+    <a class="btn" id="open" href="#">افتح الدعوة</a>
+    <p class="hint" id="hint">إن لم يكن التطبيق عندك سيُفتح Google Play لتحميله، ثم تظهر لك الدعوة عند فتحه</p>
+    <div class="code" id="codeBox"><small id="codeLbl">إن لم تظهر الدعوة: افتح «رفقتي» ثم «عندي كود من صديق» واكتب</small><b id="code"></b></div>
+  </main>
+  <footer id="foot">أذكار يومي · طمأنينة كل يوم</footer>
+
+<script>
+(function () {
+  // c = كود الداعي (6 أرقام)، n = اسمه، l = لغة الرسالة (ar/en)
+  var q = new URLSearchParams(location.search);
+  var code = (q.get('c') || '').replace(/\D/g, '');
+  if (!/^\d{6}$/.test(code)) code = '';
+  var name = (q.get('n') || '').replace(/[\u0000-\u001F<>]/g, '').trim().slice(0, 30);
+  var en = q.get('l') === 'en';
+  var female = q.get('g') === 'f';
+
+  var PKG = 'com.kaizenzrl.athkaryomi';
+  var play = 'https://play.google.com/store/apps/details?id=' + PKG + (code ? '&referrer=' + encodeURIComponent('inv=' + code) : '');
+  var isAndroid = /Android/i.test(navigator.userAgent);
+  // يفتح التطبيق إن كان مثبّتًا (على صفحة «رفقتي» بالدعوة)، وإلا ينتقل أندرويد إلى Google Play بالكود
+  var intent = 'intent://invite/' + code + '#Intent;scheme=' + PKG + ';package=' + PKG +
+               ';S.browser_fallback_url=' + encodeURIComponent(play) + ';end';
+
+  function txt(id, s) { var el = document.getElementById(id); if (el) el.textContent = s; }
+
+  if (en) {
+    document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr';
+    document.title = 'Invitation to a dhikr companionship · Athkar Yawmi';
+    txt('appName', 'Athkar Yawmi');
+    txt('title', name ? name + ' invites you to be dhikr companions' : 'An invitation to be dhikr companions');
+    txt('sub', 'We remind each other and keep up our daily athkar together');
+    txt('m', 'Morning'); txt('e', 'Evening'); txt('n', 'Sleep');
+    txt('open', 'Open the invitation');
+    txt('hint', "If you don't have the app, Google Play will open so you can install it — the invitation appears when you open it");
+    txt('codeLbl', "If the invitation doesn't appear: open “Companion”, tap “I have a friend's code” and enter");
+    txt('foot', 'Athkar Yawmi · Peace of heart every day');
+  } else if (name) {
+    txt('title', name + (female ? ' تدعوك إلى رفقة الذكر' : ' يدعوك إلى رفقة الذكر'));
+  }
+
+  var btn = document.getElementById('open');
+  if (code) { txt('code', code); document.getElementById('codeBox').style.display = 'block'; }
+
+  if (isAndroid && code) {
+    btn.href = intent;
+    // محاولة تلقائية واحدة؛ والزرّ يبقى إن منعها المتصفّح
+    setTimeout(function () { location.href = intent; }, 350);
+  } else {
+    btn.href = play;
+    if (!isAndroid) txt('hint', en ? 'The app is currently available on Android (Google Play).' : 'التطبيق متوفّر حاليًا على أندرويد (Google Play).');
+  }
+})();
+</script>
+</body>
+</html>
